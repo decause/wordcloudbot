@@ -2,9 +2,7 @@ wordcloudbot
 ============
 
 
-How
-===
-it's going to work
+How it's going to work
 ~~~~~~~~~~~~~~~~~~
 
 .. image:: http://threebean.org/presentations/images/fedmsg-flock14-img/twitter-diagram.png
@@ -12,10 +10,8 @@ it's going to work
 
 ----
 
-Take this
-=========
-It's dangerous out there
-~~~~~~~~~~~~~~~~~~~~~~~~
+It's dangerous to go alone! Take this!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: bash
 
@@ -26,10 +22,8 @@ It's dangerous out there
 
 ----
 
-Your first
-==========
-fedmsg script
-~~~~~~~~~~~~~
+Your first fedmsg script
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -44,10 +38,8 @@ Give it a run.
 
 ----
 
-It's like a million voices cried out
-====================================
-and then were silent
-~~~~~~~~~~~~~~~~~~~~
+It's like a million voices cried out and then were silent
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -65,10 +57,8 @@ See http://fedmsg.com/en/latest/topics for more
 
 ----
 
-Some config
-===========
-at the top
-~~~~~~~~~~
+Some config at the top
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -83,10 +73,8 @@ at the top
 
 ----
 
-So
-==
-meta
-~~~~
+So meta
+~~~~~~~
 
 .. code:: python
 
@@ -110,10 +98,8 @@ meta
 
 ----
 
-A picture
-=========
-is worth a thousand words
-~~~~~~~~~~~~~~~~~~~~~~~~~
+A picture is worth a thousand words
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -136,10 +122,6 @@ is worth a thousand words
         print "Cleaning up %r" % filename
         os.remove(filename)
 
-----
-
-:data-x: r1600
-:data-y: 0
 
 Intermezzo
 ==========
@@ -149,11 +131,6 @@ extract neato stuff and print it.
 
 But... if we want to move to the next step, we have to take a break from our
 happy hacking to go and deal with Twitter, its API, and API keys.
-
-----
-
-:data-x: r1600
-:data-y: 0
 
 The Twitter API
 ===============
@@ -169,16 +146,8 @@ We're going to have to:
 We will keep those tokens a secret and our little bot will use them to login
 and tweet on our behalf.  You'll get **four** secret strings.
 
-----
-
-:data-x: r0
-:data-y: r900
-
-
-Storing
-=======
-those secrets
-~~~~~~~~~~~~~
+Storing those secrets
+~~~~~~~~~~~~~~~~~~~~~
 
 First, add a directory called ``fedmsg.d/`` to your current working directory.
 
@@ -201,12 +170,10 @@ Test that fedmsg can read in that new config file by looking for them in:
 
 ----
 
-Using
-=====
-those secrets
-~~~~~~~~~~~~~
+Using those secrets
+~~~~~~~~~~~~~~~~~~~
 
-Go back to ``badgebot.py`` and add the following:
+Go back to ``wordcloudbot.py`` and add the following:
 
 .. code:: python
 
@@ -223,10 +190,8 @@ Go back to ``badgebot.py`` and add the following:
 
 ----
 
-And
-===
-further down
-~~~~~~~~~~~~
+And further down
+~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -254,17 +219,11 @@ further down
 Does it work?
 =============
 
-----
 
-:data-x: r1600
-:data-y: 0
+systemd for real
+~~~~~~~~~~~~~~~~
 
-systemd
-=======
-for real
-~~~~~~~~
-
-Make a new file called ``badgebot.service`` with these contents::
+Make a new file called ``wordcloudbot.service`` with these contents::
 
     [Unit]
     Description=A Twitter bot for your Fedora Badges.  Wow.
@@ -272,7 +231,7 @@ Make a new file called ``badgebot.service`` with these contents::
     Documentation=http://fedmsg.com
 
     [Service]
-    ExecStart=/usr/local/bin/badgebot.py
+    ExecStart=/usr/local/bin/wordcloudbot.py
     Type=simple
     User=fedmsg
     Group=fedmsg
@@ -280,10 +239,6 @@ Make a new file called ``badgebot.service`` with these contents::
     [Install]
     WantedBy=multi-user.target
 
-----
-
-:data-x: r0
-:data-y: r900
 
 install.sh
 ==========
@@ -291,10 +246,10 @@ install.sh
 .. code:: bash
 
     #!/bin/bash -x
-    # install.sh - (re)install and (re)start the badgebot
+    # install.sh - (re)install and (re)start the wordcloudbot
 
     # Install our script
-    cp badgebot.py /usr/local/bin/badgebot.py
+    cp wordcloudbot.py /usr/local/bin/wordcloudbot.py
 
     # Make sure no one else can read our secrets.
     cp fedmsg.d/twitter-secrets.py /etc/fedmsg.d/.
@@ -302,15 +257,15 @@ install.sh
     chmod o-r /etc/fedmsg.d/twitter-secrets.py
 
     # Copy in service file for systemd
-    cp badgebot.service /usr/lib/systemd/system/badgebot.service
+    cp wordcloudbot.service /usr/lib/systemd/system/wordcloudbot.service
     systemctl daemon-reload
-    systemctl restart badgebot
+    systemctl restart wordcloudbot
 
 ----
 
 Watch the journal::
 
-    sudo journalctl -u badgebot --follow
+    sudo journalctl -u wordcloudbot --follow
 
 - Presented by Ralph Bean
 - http://github.com/ralphbean
@@ -325,10 +280,12 @@ http://threebean.org/presentations/fedmsg-flock14/
 .. image:: http://threebean.org/presentations/images/fedmsg-flock14-img/creative-commons.png
 http://threebean.org/presentations/
 
-fedmsg
-======
-what it is
-~~~~~~~~~~
+
+
+
+
+fedmsg: what it is?
+===================
 
 
 The `Fedora Infrastructure Message Bus <http://fedmsg.com>`_ is a
@@ -354,10 +311,8 @@ questions and clarifications on the `deployment docs
 <http://fedmsg.com/en/latest/deployment>`_ from time to time.
 
 
-fedmsg
-======
-what do?
-~~~~~~~~
+fedmsg: what it do?
+~~~~~~~~~~~~~~~~~~~
 
 There are two aspects to this workshop:
 
@@ -394,10 +349,8 @@ nicely.  You should install that too:
     sudo yum install python-fedmsg-meta-fedora-infrastructure
 
 
-A taste
-=======
-of the bus
-~~~~~~~~~~
+A taste of the bus
+~~~~~~~~~~~~~~~~~~
 
 Clone the repo from https://github.com/ralphbean/fedmsg2gource
 
@@ -413,18 +366,14 @@ Run::
 
 
 
-Explore
-=======
-the datagrepper API
-~~~~~~~~~~~~~~~~~~~
+Explore the datagrepper API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 https://apps.fedoraproject.org/datagrepper
 
 
-say
-===
-you wanted your own local bus
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+say you wanted your own local bus
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: bash
 
@@ -451,10 +400,8 @@ or from python:
     )
 
 
-if
-==
-you want to consume
-~~~~~~~~~~~~~~~~~~~
+if you want to consume
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: bash
 
@@ -480,10 +427,8 @@ you want to consume
     }
 
 
-consuming messages
-==================
-from python
-~~~~~~~~~~~
+consuming messages from python
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -493,10 +438,8 @@ from python
         print topic, msg
 
 
-consuming messages
-==================
-with a daemon
-~~~~~~~~~~~~~
+consuming messages with a daemon
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``fedmsg-hub`` is a daemon that can make writing your own
 long-running consumers simpler.  There are `docs on fedmsg.com
@@ -517,10 +460,8 @@ for writing plugins, but they look like this:
             pprint.pprint(message)
 
 
-consuming messages
-==================
-at the command line... an aside
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+consuming messages at the command line... an aside
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are lots of fun options to ``fedmsg-tail`` like ``--terse``.
 
@@ -540,16 +481,16 @@ There are lots of fun options to ``fedmsg-tail`` like ``--terse``.
     https://fedoraproject.org/w/index.php?title=Flock:Rideshare&diff=prev&oldid=347430
 
 
-things that use fedmsg
+Things that use fedmsg
 ======================
+
+
 there's a lot of them at this point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-koji
-====
-stalk
-~~~~~
+koji stalk
+~~~~~~~~~~
 
 David Aquilina's (dwa's) `koji stalk
 <http://dwa.fedorapeople.org/wip/koji-stalk.py>`_ monitors koji over fedmsg and
@@ -557,10 +498,8 @@ rebuilds packages for arm and ppc.
 
 ----
 
-FAS2Trac (ftl)
-==============
-(fama updater)
-~~~~~~~~~~~~~~
+FAS2Trac (ftl) (fama updater)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 herlo's `FAS2Trac fama updater (ftl)
 <https://git.fedorahosted.org/cgit/ftl.git>`_ listens to messages indicating
@@ -570,10 +509,8 @@ files a ticket in the `ambassadors' trac instance
 
 ----
 
-compose
-=======
-downloader
-~~~~~~~~~~
+compose downloader
+~~~~~~~~~~~~~~~~~~
 
 p3ck's `fedmsg-download <https://github.com/p3ck/fedmsg-download/>`_
 listens for messages that the daily branched and rawhide compose
@@ -582,10 +519,8 @@ process has finished -- it then downloads the latest builds from
 
 ----
 
-synchronization
-===============
-of package ACLs
-~~~~~~~~~~~~~~~
+synchronization of package ACLs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 So, it **used** to be that when someone was granted *commit* access to a
 package in the `Fedora PackageDB (pkgdb)
@@ -606,10 +541,8 @@ fedmsg messages from the pkgdb.  It is much faster.
 
 ----
 
-notifications
-=============
-to email, irc, the desktop, and android
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+notifications to email, irc, the desktop, and android
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There's the new `FMN system <https://apps.fedoraproject.org/>`_ that can
 deliver notifications to you via irc, email, and android.
@@ -625,6 +558,7 @@ which listens for messages and displays a filtered stream on your desktop with
 
 reports
 =======
+
 10 ways from sunday
 ~~~~~~~~~~~~~~~~~~~
 
@@ -638,10 +572,6 @@ and retired.
 
 ----
 
-reports
-=======
-10 ways from sunday
-~~~~~~~~~~~~~~~~~~~
 
 There's also the `Release Engineering Dashboard
 <https://apps.fedoraproject.org/releng-dash>`_ which grabs data from
@@ -675,15 +605,3 @@ The assimilation of **message producing services** is nearly complete.
 
 There are many **message consuming services** already in place.. but we can
 likely make many more.  Which is why you're here, no?
-
-
-
-Does it work?  Debug!
-
-----
-
-:data-x: r1600
-:data-y: 0
-
-Open Hacking Time
-=================
