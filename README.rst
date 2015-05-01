@@ -1,7 +1,6 @@
 wordcloudbot
 ============
 
-
 How it's going to work
 ~~~~~~~~~~~~~~~~~~
 
@@ -173,7 +172,7 @@ Test that fedmsg can read in that new config file by looking for them in:
 Using those secrets
 ~~~~~~~~~~~~~~~~~~~
 
-Go back to ``wordcloudbot.py`` and add the following:
+Go back to ``yourwordcloudbot.py`` and add the following:
 
 .. code:: python
 
@@ -266,22 +265,6 @@ install.sh
 Watch the journal::
 
     sudo journalctl -u wordcloudbot --follow
-
-- Presented by Ralph Bean
-- http://github.com/ralphbean
-- http://twitter.com/ralphbean
-- http://threebean.org
-- ``2048R/971095FF 2012-12-06``
-
-Go sit in ``#fedora-fedmsg`` on ``irc.freenode.net``.
-
-http://threebean.org/presentations/fedmsg-flock14/
-
-.. image:: http://threebean.org/presentations/images/fedmsg-flock14-img/creative-commons.png
-http://threebean.org/presentations/
-
-
-
 
 
 fedmsg: what it is?
@@ -605,3 +588,16 @@ The assimilation of **message producing services** is nearly complete.
 
 There are many **message consuming services** already in place.. but we can
 likely make many more.  Which is why you're here, no?
+
+- Presented by Ralph Bean
+- http://github.com/ralphbean
+- http://twitter.com/ralphbean
+- http://threebean.org
+- ``2048R/971095FF 2012-12-06``
+
+Go sit in ``#fedora-fedmsg`` on ``irc.freenode.net``.
+
+http://threebean.org/presentations/fedmsg-flock14/
+
+.. image:: http://threebean.org/presentations/images/fedmsg-flock14-img/creative-commons.png
+http://threebean.org/presentations/
