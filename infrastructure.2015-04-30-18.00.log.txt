@@ -1,0 +1,279 @@
+18:00:03 <nirik> #startmeeting Infrastructure (2015-04-30)
+18:00:03 <zodbot> Meeting started Thu Apr 30 18:00:03 2015 UTC.  The chair is nirik. Information about MeetBot at http://wiki.debian.org/MeetBot.
+18:00:03 <zodbot> Useful Commands: #action #agreed #halp #info #idea #link #topic.
+18:00:04 <nirik> #meetingname infrastructure
+18:00:04 <nirik> #topic aloha
+18:00:04 <nirik> #chair smooge relrod nirik abadger1999 lmacken dgilmore mdomsch threebean pingou puiterwijk
+18:00:04 <nirik> #topic New folks introductions / Apprentice feedback
+18:00:04 <zodbot> The meeting name has been set to 'infrastructure'
+18:00:04 <zodbot> Current chairs: abadger1999 dgilmore lmacken mdomsch nirik pingou puiterwijk relrod smooge threebean
+18:00:16 * pingou here
+18:00:18 <smooge> here
+18:00:22 <stbnruiz> here!
+18:00:25 * puiterwijk is here
+18:00:27 <nirik> any apprentices with questions or comments? or new folks who would like to give a short introduction?
+18:00:34 <gmm> Hi!
+18:00:36 <pingou> nirik:  we need to add probinson to that line now :)
+18:00:40 <gmm> I am quite new.
+18:00:41 <nirik> indeed.
+18:00:49 <andreasch> here
+18:01:22 <nirik> gmm: welcome. Care to tell us a bit about yourself? are you interested in sysadmin or application development or both?
+18:02:10 <stbnruiz> i am also new :)
+18:02:15 * tflink is here
+18:02:36 <gmm> My name is Gilbert Morgan, and currently I am a professional middleware admin for a federal agency. I am interested in both! I want to get my hands on anything I can possibly contribute towards, and I look forward to learning and making an impact.
+18:02:49 <nirik> stbnruiz: welcome also. ;) care to give a short intro?
+18:02:55 <gmm> Primarily, I have always been most interested in sysadmin work.
+18:03:06 * randomuser wanders in
+18:03:08 <randomuser> welcome, gmm
+18:03:18 <gmm> Thank you, randomuser, haha.
+18:03:29 * relrod here
+18:04:06 <nirik> gmm: excellent. Well, see me after the meeting in #fedora-admin and I can add you to our apprentice program to look around... and #fedora-apps is open for application devel type things.
+18:04:22 * threebean is here
+18:04:24 <gmm> Thank you, nirik!
+18:04:26 <stbnruiz> My Name is Esteban Ruiz Diaz, and currently Fedora Ambassador for Paraguay and L10n Team -- VOIPSA Consulting and InfoSec Voip Services..
+18:05:12 <stbnruiz> My interested in SysAdmin
+18:05:21 <stbnruiz> .fas stbnruiz001
+18:05:22 <zodbot> stbnruiz: stbnruiz001 'Esteban Ruiz Diaz Baez' <stbnruiz001@gmail.com>
+18:05:36 <nirik> stbnruiz: great. :) Welcome. Also see me after the meeting and I can get you added to apprentices.
+18:05:39 <pingou> bienvenido :)
+18:05:51 <dgilmore> hola all
+18:05:55 <stbnruiz> Gracias!
+18:06:08 <nirik> cool. Any other new folks or apprentices with questions?
+18:06:10 <pingou> Habla español y dgilmore arriba :)
+18:06:42 <stbnruiz> great, thanks!
+18:06:47 <nirik> ok, on to the info dump section of our meeting:
+18:06:53 <nirik> #topic announcements and information
+18:06:53 <nirik> #info New fedmsg messages from retrace.fedoraproject.org are on the staging bus.  Should go to production early next week.  - ralph
+18:06:53 <nirik> #info Slow and steady progress on the fedmenu initiative:  https://fedoraproject.org/w/index.php?title=Infrastructure/FY16_frontend   - ralph
+18:06:53 <nirik> #info python3 release of python-fedora forthcoming - ralph
+18:06:53 <nirik> #info MailMan3 has been released!! Congrats abompard and all the MailMan team  -- pingou
+18:06:55 <nirik> #info new nuancier release, mostly bug fix and fedmenu -- pingou
+18:06:57 <nirik> #info new elections release, mostly bug fix and fedmenu -- pingou
+18:06:59 <nirik> #info new fedocal release, mostly bug fix and fedmenu -- pingou
+18:07:01 <nirik> #info fedmenu integration on: planet, wiki, review status, paste, easyfix and more full list at https://fedoraproject.org/wiki/Infrastructure/FY16_frontend  -- :tada: :cake: threebean && pingou :cake: :tada:
+18:07:04 <nirik> #info koschei is now in staging. Need some more setup, but it's there - kevin
+18:07:06 <nirik> #info fas in staging had a blowup. Please re-enroll any totp 2fa tokens - kevin
+18:07:08 <nirik> #info Yubikey tokens from stg have been overwritten from prod due to this - kevin
+18:07:10 <nirik> #info secondary sigul has been reinstalled with rhel7/ansible - kevin
+18:07:12 <nirik> #info Going to be a brainstorming session about using new tools in infra next week - kevin
+18:07:16 <nirik> #info
+18:07:18 <nirik> #info Taskotron production has been redeployed as F21 and updated to include latest bits - tflink
+18:07:20 <nirik> #info Beaker devs have submitted an initial patch for deploying beaker using ansible, working with them to get it ready to include in the infra ansible repo - tflink
+18:07:23 <nirik> anything in there anyone would like to note or say more about?
+18:07:57 <nirik> I'll mention the mail I sent about brainstorming new tech in fedora infrastructure next week. ;) Any interested folks should sign up when they can meet in the whenisgood I put in the email.
+18:08:18 <nirik> ok, on to discussion
+18:08:21 <nirik> #topic What are we going to do about meetbot (whither supybot)? - threebean
+18:08:26 * pingou notes that some of these time slot are really late in EU :)
+18:08:33 <nirik> pingou: sorry. ;(
+18:08:41 <threebean> so, this topic.
+18:09:00 <threebean> I only asked to bring it up because it's gotten us into a kind of crossroads.
+18:09:14 <threebean> we have zodbot, here, who runs on top of the supybot framework
+18:09:24 <threebean> we have a number of plugins for it that we use and depend on around the fedora community
+18:09:32 <threebean> notably, meetbot.  that's the software that's used to run this meeting.
+18:09:56 <threebean> unfortunately, meetbot is mostly dead upstream.  there's no one maintaining it and there hasn't been a release in a long time.
+18:10:04 <nirik> supybot itself is still a bit active, but no releases since 2009. ;(
+18:10:23 <threebean> when contemplating what to do about this, pingou started looking into alternative bot frameworks in case we wanted to port away entirely and upgrade to something else
+18:10:41 <threebean> namely, 'irc3' which is also written in python (we like) and appears to be nice and modern and maintained.
+18:10:42 <pingou> irc3
+18:10:58 <nirik> can it do all the stuff supybot does?
+18:11:03 * nirik hasn't really looked at it.
+18:11:03 <pingou> I have started to port some plugins to it
+18:11:11 <pingou> notable the -fedora and koji plugins
+18:11:21 <pingou> but larger ones like meetbot would need more work
+18:11:23 <nirik> yeah, and aliases are a big use
+18:11:57 <threebean> we're kind of at a crossroads with it.  it came up the other day as we were installing 'fedmenu' on all our apps.
+18:11:59 <pingou> the plugins themselves are fairly straight forward to write so that's a bonus
+18:12:14 <nirik> meetbot might be a fair bit of work to redo?
+18:12:14 <threebean> and the meetbot minutes were on the list to update.  it would be quite easy to patch and do.
+18:12:44 <threebean> but do we want to fork meetbot and maintain our own copy?  do we waste time with that when we're going to eventually go to irc3.  which way do we go?
+18:13:17 <nirik> yeah. We have a lot of history in supybot/supybot-gribble and meetbot, but man it's not very active
+18:13:18 <threebean> but, if we never eventually go to irc3, then we're stuck with a meetbot source that we're not tending to when we otherwise could.
+18:13:19 <pingou> nirik: meetbot would be some work but not too much, they nicely separated the core logic from the IRC logic
+18:13:59 <nirik> I guess I might lean toward moving to irc3 if we are planning on forking meetbot anyhow.
+18:14:29 <nirik> but if you like I can try and play with it this week and see if there's anything glaring missing from irc3?
+18:14:47 <pingou> the more eyes the better on this, that's for sure
+18:15:22 <pingou> one thing I liked about irc3 is its speed, it is quite fast and even if several people are asking questions at the same time, it remains smooth
+18:15:23 * dgilmore does not have a strong opinion
+18:15:36 <pingou> but I have not looked at other options either
+18:15:39 <dgilmore> but actively developed and maintained code seems best
+18:15:41 <nirik> moving to a more active upstream sounds appealing.
+18:15:58 <pingou> I just met upstream last year at pycon-fr and wanted to play a little bit with the bot
+18:16:00 <nirik> how about I try and look at it and we revisit next week/on list? (or anyone else also who wants to)
+18:16:15 <threebean> it doesn't seem like we're hampered at all by zodbot's speed atm, though.
+18:16:29 <threebean> we're capped at 150 channels, but that's freenode policy, not supybot
+18:16:42 <pingou> threebean: kinda when we re-load leave or join :)
+18:16:43 <threebean> and the bot is slow to startup, but that's mostly FAS's fault, not supybot.
+18:16:44 <nirik> it does take a long time to rejoin
+18:16:56 <nirik> the join slowness is supybot
+18:17:04 <dgilmore> some of that is freenode flood limitations right?
+18:17:18 <nirik> it does some dumb things... like getting info for all users in every channel as it joins them
+18:17:24 <nirik> yeah, some of that as well.
+18:17:48 <threebean> I don't have a strong opinion about which way we go.  I guess I'd just like us to pick one way so we can cohere development.
+18:18:08 * pingou hasn't a strong opinion either
+18:18:12 <nirik> are we sure we are going to fork meetbot? is there a list of outstanding requests? or just little stuff?
+18:18:29 <threebean> just little stuff.  style.  fedmenu.
+18:18:30 <threebean> that's about it.
+18:18:32 <nirik> we have added stuff already of course.
+18:18:39 <lmacken> we could merge it all into a twisted reactor :)
+18:18:55 <lmacken> meetbot + supybot + fedmsg bot
+18:19:07 <pingou> lmacken: irc3 uses asyncio
+18:19:14 <lmacken> oh sweet :)
+18:19:22 <pingou> (and is py3 compatible)
+18:19:29 <nirik> ok, let us look for a week and discuss next week/on list? with the idea to decide 'soonish' ?
+18:19:41 * nirik would like to look at irc3
+18:19:44 <threebean> sounds good to me.  thanks :)
+18:20:09 <lmacken> looks like it's the new hotness
+18:20:10 <nirik> #action everyone interested to look at irc3 and see if there's functionality that we would have to reimplement
+18:20:17 <nirik> #topic Mirrormanager2 status roundup, can we deploy soon? - kevin
+18:20:27 <nirik> pingou / adrianr: where do we stand on mm2?
+18:20:44 <pingou> so I ported the script creating the fedora-install-X repo to MM2 earlier today
+18:20:46 <nirik> I know we needed to get the fedora-install thing in but I saw a script for that go by
+18:20:48 <dgilmore> I think it would be good to do it in the next week, or waituntil a week or two after f22 Final GA
+18:20:48 <pingou> but it needs testing on stg
+18:20:49 <nirik> cool.
+18:21:12 <nirik> dgilmore: yeah, I really want to get it done soon, it's lingering. ;)
+18:21:14 <pingou> from there, it's a matter of cutting the release and I think we're good :)
+18:21:22 <pingou> at least, afaik
+18:21:50 <nirik> ok, so test script, cut new release, perhaps look at monday for switch?
+18:21:58 <nirik> note that we have some rollback options...
+18:22:12 <nirik> ie, if the pkl is not right we can roll back to the mm1 one pretty quickly.
+18:22:39 <nirik> and we can keep bapp02 there and making the mm1 pkls until we are sure mm2's are all good.
+18:23:01 <pingou> adrianr: seems to be busy until Monday
+18:23:12 <pingou> nirik: that sounds good
+18:23:21 <pingou> note: tomorrow is holiday in France
+18:23:39 <nirik> ok we could do tuesday too... whatever works
+18:24:21 <nirik> ok. moving on
+18:24:27 <pingou> let's try Monday when the US wakes up and we can always fall back to Tuesday
+18:24:32 <nirik> ok.
+18:24:37 <dgilmore> sure
+18:24:44 <nirik> #action try and migrate to mirrormanager2 monday
+18:24:46 <pingou> I'll have the time to cut a release in the morning with the latest stuff :)
+18:25:02 <nirik> #topic Convert infra-docs to RST - randomuser
+18:25:07 <nirik> randomuser: you around?
+18:26:04 <nirik> anyhow, I am fine with doing this... as long as they are still readable after as plain test.
+18:26:09 <randomuser> yeah, I'm here
+18:26:10 <nirik> which they should be
+18:26:31 <randomuser> this is basically a scratch-my-own-itch thing at this point - I want fodder for anerist
+18:26:41 * nirik nods.
+18:26:45 <randomuser> but, we'll end up with a nice place to display the infra docs
+18:27:02 <nirik> I don't think anyone objects. ;) You have a way to just do it, or you need assistance with any of it?
+18:27:05 <randomuser> contributor-facing documentation is an end goal
+18:27:09 * pingou thinks anitya front-end very hard
+18:27:46 <randomuser> I don't have a *programatic* way to do it, but RST is pretty intuitive.
+18:27:47 <nirik> pingou: ?
+18:28:03 <randomuser> Of course, I won't object to help
+18:28:11 <pingou> nirik: we could host the ansible repo in anitya and offers the infra docs under the doc tab of anitya :)
+18:28:27 <nirik> ah, right.
+18:28:43 <nirik> you mean pagure?
+18:28:48 <pingou> oups
+18:28:55 <pingou> yes I meant pagure
+18:29:14 * pingou digged himself in the hole
+18:29:36 <nirik> yeah, I would like to see if we could offer infra ansible there, that would be nice for PR's, etc... but it would have to sync which could be tricky
+18:30:08 <dgilmore> speaking of pagure, do we have plans to make it an official provided service?
+18:30:31 * randomuser is hoping for production pagure
+18:30:33 <pingou> as in ?
+18:30:35 <dgilmore> I would like to move all the releng repos to it
+18:30:51 <dgilmore> pingou: and in pagure.fedoraproject.org
+18:30:54 <nirik> we do I think, but I was waiting for things like it being packaged in epel, etc.
+18:31:08 <dgilmore> as in
+18:31:26 <pingou> nirik: package is ready but it bundles jquery and therefore does not satisfy the GL
+18:31:29 <dgilmore> pingou: I guess to be at teh point we can rely on it being there
+18:31:57 <nirik> pingou: ok. ;( I haven't really followed those guidelines...
+18:31:59 <pingou> note that we have pagure.org and pagure.io
+18:32:36 <nirik> pingou: side note, we have cert for pagure.io now.
+18:32:54 <pingou> thanks for that :)
+18:33:44 <dgilmore> pingou: and we will keep pagure.org hosted in fedora?
+18:33:52 <dgilmore> and it will follow freezes etc?
+18:34:07 <pingou> dgilmore: hosted in Fedora yes, folow freeze likely
+18:34:26 <nirik> well, if we have release blocking things there, then yeah.
+18:34:30 <randomuser> so... infra-docs is sysadmin ACLs, right? I should be able to go for it?
+18:34:39 <nirik> randomuser: yep. go for it. ;)
+18:34:48 <randomuser> thanks all :)
+18:35:57 <nirik> ok, moving on...
+18:36:07 <dgilmore> okay. I woudl prefer it under fp.o, but can live with it being in pagure.org
+18:36:20 <nirik> #topic Learn about: pkgs.fedoraproject.org, our dist-git server - patrick
+18:36:26 <dgilmore> just want to be sure it will be there and not break when doing composes
+18:36:53 <nirik> dgilmore: yeah, if we use that for releng, rawhide/branched depend on it every run
+18:36:59 <tflink> at one point, I think there was idle talk about using phabricator for some of this - I assume that isn't as much of a possibility anymore?
+18:37:15 <pingou> well rawhide will depend on the backend, which is gitolite
+18:37:28 <pingou> so just like the current setup
+18:37:51 <nirik> pingou: sure. (well, fedorahosted is just git not gitolite, but same difference)
+18:37:55 <pingou> tflink: there is a discussion about all the option started by maxamilion on the rel-eng list
+18:38:21 <tflink> ah, I just joined that list this week, might have missed the start of it
+18:38:45 <dgilmore> pingou: stupid question, could we use pagure on pkgs.fp.o?
+18:39:08 <pingou> dgilmore: it would need some adjustements, but we could adjust for it
+18:39:32 <dgilmore> pingou: I think it might be nice to allow for people to submit patches
+18:39:41 <pingou> things like: integrate the ACLs with pkgdb/ turn off some feature completely (issue, doc)
+18:40:04 <dgilmore> pingou: and for allowing people to do private dev etc
+18:40:50 <dgilmore> right now we do not allow people to remove branches due to not being sure what commits are used in builds
+18:41:21 <dgilmore> maybe making a fork would work around that
+18:41:34 <nirik> pingou: didn't you have a proof of concept thing that was like that ? over pkgs?
+18:41:54 <pingou> nirik: progite-lite yes
+18:42:04 <pingou> but maintaining 2 code bases might not be the best approach
+18:42:09 <pingou> (twice the bugs)
+18:42:09 <nirik> anyhow, lets perhaps discuss more on list or in other channels?
+18:42:12 <pingou> +1
+18:42:17 <dgilmore> then we could limit the branches made on the main repos
+18:42:21 <nirik> and let puiterwijk do some teaching about pkgs. ;)
+18:42:30 <pingou> +1, sorry puiterwijk :)
+18:42:34 <dgilmore> nirik: indeed, sorry for the noise
+18:42:43 <puiterwijk> Okay, so I had suggested last week someone should do a quick summary of pkgs.fp.o, and seems I somehow agreed to doing this myself, so here we go and see how it goes.
+18:43:12 <puiterwijk> So, pkgs.fedoraproject.org, is the server that hosts our git repositories with the spec files for all FEdora packages
+18:44:00 <puiterwijk> Those git repos are being created by a script called pkgdb_sync_git_branches, which also creates the branches as the name implies, based on the branches thate exist in pkgdb.
+18:44:42 <puiterwijk> the permissions to these repos are being held to by gitolite, which also gets the data for that from pkgdb.
+18:45:07 <randomuser> where does this script live?
+18:45:12 <puiterwijk> randomuser: in ansible
+18:45:16 <randomuser> ack
+18:45:17 <puiterwijk> https://infrastructure.fedoraproject.org/cgit/ansible.git/tree/roles/distgit/templates/pkgdb_sync_git_branches.py
+18:45:36 <puiterwijk> and the script that generates the ACL files for gitolite is located at https://infrastructure.fedoraproject.org/cgit/ansible.git/tree/roles/distgit/templates/genacls.pkgdb
+18:46:21 <puiterwijk> both of those scripts used to be in a cron job, but these days they're both triggered by fedmsg messages about acl updates and repo/branch creations.
+18:46:38 <puiterwijk> that means they are now run pretty soon after a branch request or new package request hasbeen approved.
+18:47:52 <puiterwijk> So those git repos hold the spec files and references to tarballs for all builds for all Fedora packages.
+18:48:38 <puiterwijk> Since git doesn't handle binary files well, we have a seperate system, called the lookaside cache, where all the actual source tarballs are located
+18:49:21 <puiterwijk> The lookaside cache is just an nfs mounted directory on pkgs, where all tarballs are stored, which is served over http to facilitate getting the sources
+18:50:16 <puiterwijk> Files are uploaded to lookaside by packagers with fedpkg, and are handled on the server side by a script that computes the hash of the uploaded file, and puts the file in a directory named after the hash of the file
+18:51:05 <puiterwijk> That way, it's always possible to find the exact version of the tarball by the checksum, regardless if the next uploaded tarball happens to have the same name.
+18:52:41 <puiterwijk> The lookaside upload script is just a small cgi script, hosted by pkgs.fp.o
+18:52:57 <pingou> I have a question about the upload.cgi script: do we want to replace it?
+18:53:25 <pingou> I mentionned it quickly to threebean iirc, who had some arguments againt (iirc)
+18:53:34 <dgilmore> pingou: no opposed to doing so. as long as it does things correctly
+18:53:43 <nirik> pingou: well, replace with what? oauth like tokens?
+18:53:46 * threebean forgets this
+18:53:57 <dgilmore> pingou: but I would think we need a compelling reason to do so
+18:54:04 <puiterwijk> pingou: well, I don't really have a reason why we would
+18:54:06 <dgilmore> and I am not aware of any
+18:54:07 <pingou> nirik: no, just drop-in replacement that does things like: 400 error code when the upload fails :)
+18:54:22 <nirik> pingou: ah, so more improve the existing one?
+18:54:26 <pingou> or return a 404 if the sources do not exist
+18:54:47 <dgilmore> pingou: upload.cgi does not do downloads
+18:54:55 <dgilmore> not sure what a 404 would give
+18:54:55 <puiterwijk> pingou: downloads are handled by apache directly
+18:55:17 <pingou> dgilmore: puiterwijk I know bocecha was looking into it recently and had some problem with that
+18:55:28 <pingou> I'd have to ask him the details again, I forgot them
+18:55:39 * nirik is open to improvements on it... but they shouldn't break existing tools
+18:55:43 <puiterwijk> pingou: well, apache will serve 404's if the requested source doesn't exist
+18:55:43 <dgilmore> pingou: okay,
+18:55:48 <pingou> so I was wondering if we would want to make it a simple flask app
+18:56:08 <pingou> either to debug/maintain in the long term and hopefully behaving more properly
+18:56:11 <puiterwijk> pingou: well, I don't think it can be much simpler then the current script, in my opinion
+18:56:23 <nirik> seems like more complexity
+18:56:28 <puiterwijk> it would end up having a single endpoint with basically the same code, I think
+18:56:30 <dgilmore> what we have is very simple
+18:56:42 <pingou> puiterwijk: try getting it to run with SElinux w/o our policies and try to figure out why it returns 200 Ok when it fails to write the files :)
+18:57:08 <puiterwijk> pingou: so the SELinux stuff wouldn't be solved by flask, that's justbecause of the insanity (in normal cases) of what it's doing
+18:57:15 <pingou> after that if you think we don't need it (it's not like we're touching it often anyway), fine for me
+18:57:18 <puiterwijk> returning 200 Ok when it fails should be fixed
+18:57:27 <pingou> puiterwijk: good luck with that :)
+18:57:37 <puiterwijk> sure. last time I looked at the code, I thought it was pretty easy
+18:57:49 * nirik notes we have about 3-4min left of our meeting slot. :)
+18:58:26 <puiterwijk> pingou: do note that ify you're going to vote to have a flask app handle downloads, I'd be strongly against that: apache handles serving static files better then any flask application could :)
+18:58:52 <puiterwijk> (because of the overhead of python and the direct I/O in apache)
+18:58:53 <pingou> puiterwijk: not what I proposed/asked :)
+18:59:02 <puiterwijk> okay, sure. just wanted to make sure :)
+18:59:21 <puiterwijk> are there any other questions about pkgs in the minute w have left? :)
+18:59:34 <nirik> thanks puiterwijk. ;)
+18:59:44 <nirik> #topic Open floor
+18:59:59 <nirik> anyone want to sign up to teach about some app/setup next week? ;)
+19:01:14 <nirik> ok, I'll try and come up with something. ;)
+19:01:19 <nirik> Thanks for coming everyone!
+19:01:22 <nirik> #endmeeting
