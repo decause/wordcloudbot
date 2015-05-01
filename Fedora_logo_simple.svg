@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="267"
+   height="267"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Fedora_logo_simple.svg">
+  <metadata
+     id="metadata3377">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1334"
+     id="namedview3375"
+     showgrid="false"
+     inkscape:zoom="4.0486891"
+     inkscape:cx="133.5"
+     inkscape:cy="133.5"
+     inkscape:window-x="0"
+     inkscape:window-y="55"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs5" />
+  <path
+     d="M 266.62575,133.50613 C 266.62575,59.98128 207.02222,0.37583 133.49792,0.37583 C 60.00668,0.37583 0.42639,59.93123 0.37425,133.41225 L 0.37425,236.4333 C 0.4138,253.11763 13.94545,266.62417 30.64027,266.62417 L 133.55192,266.62417 C 207.05167,266.59532 266.62575,207.01142 266.62575,133.50613"
+     id="voice"
+     style="fill:#294172" />
+  <path
+     d="M 139.6074,127.52923 L 139.6074,189.87541 C 139.6074,224.37943 111.63203,252.35541 77.12679,252.35541 C 71.89185,252.35541 68.1703,251.7644 63.32444,250.49771 C 56.25849,248.64859 50.48398,242.85518 50.48158,236.1166 C 50.48158,227.97147 56.39394,222.0467 65.23187,222.0467 C 69.43824,222.0467 70.96454,222.85435 77.12679,222.85435 C 95.3184,222.85435 110.07443,208.11916 110.10634,189.92756 L 110.10634,161.27099 C 110.10634,158.70324 108.01971,156.62274 105.44767,156.62274 L 83.78246,156.61846 C 75.71034,156.61846 69.18845,150.18003 69.18845,142.0858 C 69.18414,133.94124 75.77725,127.52923 83.93653,127.52923"
+     id="free"
+     style="fill:#ffffff" />
+  <use
+     transform="matrix(-1,0,0,-1,249.71152,284.28821)"
+     id="dom"
+     xlink:href="#free" />
+  <path
+     d="M 243.65456,243.58425 C 243.65456,243.58425 243.6546,238.05286 243.6546,238.05286 L 241.12607,243.85062 C 241.12607,243.85062 238.66466,238.05286 238.66466,238.05286 L 238.66513,243.58425 L 237.24683,243.58425 L 237.24683,234.84933 L 238.73387,234.84933 C 238.73387,234.84933 241.16784,240.42984 241.16784,240.42984 L 243.56495,234.84933 L 245.07039,234.84933 L 245.07039,243.58425 L 243.65456,243.58425 z M 233.32154,236.31241 L 233.32154,243.58425 L 231.83941,243.58425 L 231.83941,236.31241 L 229.35453,236.31241 L 229.35453,234.84933 L 235.80399,234.84933 L 235.80399,236.31241"
+     id="TM"
+     style="fill:#3c6eb4" />
+</svg>
