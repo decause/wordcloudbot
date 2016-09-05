@@ -1,6 +1,14 @@
 wordcloudbot
 ============
 
+Project moved to Pagure_
+------------------------------------------------------
+
+**Please file any issues or pull requests against the Pagure project_!**
+
+.. _Pagure: https://pagure.io/wordcloudbot
+.. _project: https://pagure.io/wordcloudbot
+
 How it's going to work
 ~~~~~~~~~~~~~~~~~~
 
