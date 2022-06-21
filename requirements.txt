@@ -12,7 +12,7 @@ moksha.common==1.2.3
 moksha.hub==1.4.4
 munch==2.0.2
 nose==1.3.6
-numpy==1.9.2
+numpy==1.22.0
 oauthlib==0.7.2
 Pillow==2.8.1
 psutil==2.2.1
